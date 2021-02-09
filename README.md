@@ -2,20 +2,20 @@
 
 ### Authors
 
-Create:
-
-Index
+Index:
 GET - /api/v1/authors
 
+Create:
 POST - /api/v1/authors
-        Fields: name
+Fields: name
 
 ### Messages
 Index
 GET - /api/v1/authors/{author_id}/messages
 
+Create:
 POST - /api/v1/authors/{author_id}/messages
-        Fields: body (max 255)
+Fields: body (max 255)
 
 # Docker-Laravel
 
