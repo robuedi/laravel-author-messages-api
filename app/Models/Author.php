@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Author extends Model
 {
     protected $table = 'authors';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'name',
@@ -15,6 +16,6 @@ class Author extends Model
 
     public function messages()
     {
-        return $this->hasMany(Message::class, 'author_id', 'id');
+        return $this->hasMany(Message::class);
     }
 }

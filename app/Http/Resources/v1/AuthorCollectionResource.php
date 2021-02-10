@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources\v1;
 
-use App\Http\Resources\AuthorResourceInterface;
+use App\Http\Resources\AuthorCollectionResourceInterface;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class AuthorCollectionResource extends ResourceCollection implements AuthorResourceInterface
+class AuthorCollectionResource extends ResourceCollection implements AuthorCollectionResourceInterface
 {
     /**
      * Transform the resource collection into an array.
