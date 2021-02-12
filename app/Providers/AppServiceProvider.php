@@ -6,7 +6,6 @@ use App\Http\Resources\AuthorCollectionResourceInterface;
 use App\Http\Resources\AuthorResourceInterface;
 use App\Http\Resources\MessageCollectionResourceInterface;
 use App\Http\Resources\MessageResourceInterface;
-use App\Http\Resources\v1\AuthorCollectionResource;
 use App\Http\Resources\v1\MessageCollectionResource;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,7 +19,12 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(AuthorCollectionResourceInterface::class, function ($app, $data) {
-            return new AuthorCollectionResource(reset($data));
+            switch (request()->route()->getPrefix()){
+                case 'api/v1/':
+                    return new \App\Http\Resources\v1\AuthorCollectionResource(reset($data));
+                case 'api/v2/':
+                    return \App\Http\Resources\v2\AuthorResource::collection(reset($data));
+            }
         });
 
         $this->app->bind(MessageCollectionResourceInterface::class, function ($app, $data) {

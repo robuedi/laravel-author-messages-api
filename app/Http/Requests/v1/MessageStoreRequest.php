@@ -24,7 +24,7 @@ class MessageStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'body'    => 'max:255',
+            'body'    => 'string|max:255',
         ];
     }
 }

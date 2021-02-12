@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
+    protected $table = 'messages';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'body',
         'author_id',
@@ -13,6 +15,6 @@ class Message extends Model
 
     public function author()
     {
-        return $this->belongsTo(Author::class, 'author_id', 'id');
+        return $this->hasOne(Author::class);
     }
 }

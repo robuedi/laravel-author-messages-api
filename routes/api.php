@@ -22,3 +22,7 @@ Route::prefix('v1')->group(function (){
     Route::apiResource('/authors', \App\Http\Controllers\Api\v1\AuthorsController::class);
     Route::apiResource('/authors/{author}/messages', \App\Http\Controllers\Api\v1\MessagesController::class);
 });
+
+Route::prefix('v2')->group(function (){
+    Route::apiResource('/authors', \App\Http\Controllers\Api\v2\AuthorsController::class);
+});
