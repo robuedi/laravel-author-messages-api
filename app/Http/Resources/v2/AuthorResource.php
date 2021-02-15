@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources\v2;
 
-use App\Http\Resources\AuthorCollectionResourceInterface;
 use App\Http\Resources\CheckFields;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AuthorResource extends JsonResource implements AuthorCollectionResourceInterface
+class AuthorResource extends JsonResource
 {
     use CheckFields;
 

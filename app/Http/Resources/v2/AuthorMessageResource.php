@@ -3,10 +3,9 @@
 namespace App\Http\Resources\v2;
 
 use App\Http\Resources\CheckFields;
-use App\Http\Resources\MessageResourceInterface;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AuthorMessageResource extends JsonResource implements MessageResourceInterface
+class AuthorMessageResource extends JsonResource
 {
     use CheckFields;
     /**

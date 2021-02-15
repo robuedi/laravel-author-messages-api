@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\AuthorCollectionResourceInterface;
-use App\Http\Resources\AuthorResourceInterface;
 use App\Repositories\AuthorRepository;
 use Illuminate\Http\Request;
 
@@ -24,7 +22,7 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        return app()->make(AuthorCollectionResourceInterface::class, [$this->author_repository->index()]);
+        return app()->make('AuthorCollectionResource', [$this->author_repository->index()]);
     }
 
     /**
@@ -45,7 +43,7 @@ class AuthorsController extends Controller
      */
     public function store(Request $request)
     {
-        return app()->make(AuthorResourceInterface::class, [$this->author_repository->create()]);
+        return app()->make('AuthorResource', [$this->author_repository->create()]);
     }
 
     /**

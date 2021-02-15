@@ -25,7 +25,7 @@ class MessagesController extends Controller
      */
     public function index(Author $author)
     {
-        return app()->make(MessageCollectionResourceInterface::class, [$this->message_repository->index($author)]);
+        return app()->make('MessageCollectionResource', [$this->message_repository->index($author)]);
     }
 
     /**
@@ -46,7 +46,7 @@ class MessagesController extends Controller
      */
     public function store(MessageStoreRequest $request, Author $author)
     {
-        return app()->make(MessageResourceInterface::class, [$this->message_repository->create($author)]);
+        return app()->make('MessageResource', [$this->message_repository->create($author)]);
     }
 
     /**

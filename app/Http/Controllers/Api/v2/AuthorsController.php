@@ -24,6 +24,6 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        return app()->make(AuthorCollectionResourceInterface::class, [$this->author_repository->index()]);
+        return app()->make('AuthorCollectionResource', [$this->author_repository->index()]);
     }
 }

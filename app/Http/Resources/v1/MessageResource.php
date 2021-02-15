@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources\v1;
 
-use App\Http\Resources\MessageResourceInterface;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MessageResource extends JsonResource implements MessageResourceInterface
+class MessageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

@@ -2,11 +2,6 @@
 
 namespace App\Providers;
 
-use App\Http\Resources\AuthorCollectionResourceInterface;
-use App\Http\Resources\AuthorResourceInterface;
-use App\Http\Resources\MessageCollectionResourceInterface;
-use App\Http\Resources\MessageResourceInterface;
-use App\Http\Resources\v1\MessageCollectionResource;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,32 +13,32 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(AuthorCollectionResourceInterface::class, function ($app, $data) {
+        $this->app->bind('AuthorCollectionResource', function ($app, $data) {
             switch (request()->route()->getPrefix()){
                 case 'api/v1/':
-                    return new \App\Http\Resources\v1\AuthorCollectionResource(reset($data));
+                    return \App\Http\Resources\v1\AuthorResource::collection(reset($data));
                 case 'api/v2/':
                     return \App\Http\Resources\v2\AuthorResource::collection(reset($data));
             }
         });
 
-        $this->app->bind(MessageCollectionResourceInterface::class, function ($app, $data) {
-            return new MessageCollectionResource(reset($data));
+        $this->app->bind('MessageCollectionResource', function ($app, $data) {
+            return \App\Http\Resources\v1\MessageResource::collection(reset($data));
         });
 
-        $this->app->bind(AuthorResourceInterface::class, function ($app, $data) {
+        $this->app->bind('AuthorResource', function ($app, $data) {
             //check which API version we are
             switch (request()->route()->getPrefix()){
                 case 'api/v1/':
-                    return new \App\Http\Resources\v1\AuthorResource(reset($data));
+                    return new AuthorResource(reset($data));
             }
         });
 
-        $this->app->bind(MessageResourceInterface::class, function ($app, $data) {
+        $this->app->bind('MessageResource', function ($app, $data) {
             //check which API version we are
             switch (request()->route()->getPrefix()){
                 case 'api/v1/':
-                    return new \App\Http\Resources\v1\MessageResource(reset($data));
+                    return new MessageResource(reset($data));
             }
         });
     }
