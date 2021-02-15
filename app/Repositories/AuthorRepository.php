@@ -15,7 +15,7 @@ class AuthorRepository
         //check if messages required
         if(request()->has('has_messages'))
         {
-            $fields = $fields = explode(',', request()->get('has_messages'));
+            $fields = array_filter(explode(',', request()->get('has_messages')));
             if($fields)
             {
                 $query->with(['messages' => function($query) use ($fields){

@@ -3,11 +3,13 @@
 namespace App\Http\Resources\v2;
 
 use App\Http\Resources\AuthorCollectionResourceInterface;
+use App\Http\Resources\CheckFields;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AuthorResource extends JsonResource implements AuthorCollectionResourceInterface
 {
-    private $requested_fields = [];
+    use CheckFields;
+
     /**
      * Transform the resource into an array.
      *
@@ -16,6 +18,8 @@ class AuthorResource extends JsonResource implements AuthorCollectionResourceInt
      */
     public function toArray($request)
     {
+        $this->setParamName('fields');
+
         return [
             'id' => $this->when($this->checkField('id'), $this->id),
             'name' => $this->when($this->checkField('name'), $this->name),
@@ -24,26 +28,4 @@ class AuthorResource extends JsonResource implements AuthorCollectionResourceInt
             'messages' => $this->when(request()->has('has_messages'), AuthorMessageResource::collection($this->whenLoaded('messages')))
         ];
     }
-
-    private function checkField(string $field_name)
-    {
-        if(!request()->has('fields'))
-        {
-            return true;
-        }
-
-        return in_array($field_name, $this->getRequestedFields());
-    }
-
-    private function getRequestedFields()
-    {
-        if(!empty($this->requested_fields))
-        {
-            return $this->requested_fields;
-        }
-
-        $this->requested_fields = explode(',', request()->get('fields'));
-        return $this->requested_fields;
-    }
-
 }
