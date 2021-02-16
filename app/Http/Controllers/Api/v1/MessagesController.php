@@ -49,7 +49,6 @@ class MessagesController extends Controller
      */
     public function show(Author $author, Message $message)
     {
-        Log::info($message);
         return app()->make('MessageResource', [$message]);
     }
 
@@ -60,9 +59,9 @@ class MessagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Author $author, Message $message)
     {
-        //
+        return app()->make('MessageResource', [$this->message_repository->updateExceptParent($message)]);
     }
 
     /**
@@ -71,8 +70,8 @@ class MessagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Author $author, Message $message)
     {
-        //
+        return app()->make('MessageResource', [$this->message_repository->delete($message)]);
     }
 }

@@ -5,7 +5,6 @@ namespace App\Repositories;
 
 use App\Models\Author;
 use App\Models\Message;
-use Illuminate\Support\Facades\Log;
 
 class MessageRepository
 {
@@ -21,5 +20,17 @@ class MessageRepository
 
         //make the message
         return Message::create(request()->all());
+    }
+
+    public function updateExceptParent(Message $message) : Message
+    {
+        $message->update(request()->except('author_id'));
+        return $message;
+    }
+
+    public function delete(Message $message) : Message
+    {
+        $message->delete();
+        return $message;
     }
 }
