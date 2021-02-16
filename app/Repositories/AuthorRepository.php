@@ -43,4 +43,16 @@ class AuthorRepository
         return Author::create(request()->all());
     }
 
+    public function update(Author $author) : Author
+    {
+        $author->update(request()->all());
+        return $author;
+    }
+
+    public function delete(Author $author) : Author
+    {
+        $author->delete();
+        return $author;
+    }
+
 }
