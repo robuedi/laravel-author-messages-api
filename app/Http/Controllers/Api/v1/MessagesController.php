@@ -11,7 +11,6 @@ use App\Models\Message;
 use App\Repositories\MessageRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
 
 class MessagesController extends Controller
 {
@@ -21,10 +20,35 @@ class MessagesController extends Controller
     {
         $this->message_repository = $message_repository;
     }
+
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *      path="/api/v1/authors/{author}/messages",
+     *      operationId="index_messages",
+     *      tags={"Messages"},
+     *      summary="Get/Paginate the list of messages from an author",
+     *      description="Get/Paginate the list of messages from an author",
+     *     @OA\Parameter(
+     *          name="author",
+     *          description="Author's id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation"
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="unsuccessful operation, author not found"
+     *       ),
+     *       security={}
+     *     )
      *
-     * @return \Illuminate\Http\Response
+     * Returns list of message
      */
     public function index(Author $author)
     {
@@ -32,10 +56,46 @@ class MessagesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\POST(
+     *      path="/api/v1/authors/{author}/messages",
+     *      operationId="store_message",
+     *      tags={"Messages"},
+     *      summary="Create a new message for the author",
+     *      description="Create a new message for the author",
+     *     @OA\Parameter(
+     *          name="author",
+     *          description="Author's id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Parameter(
+     *          name="body",
+     *          description="Message's content/body",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="successful operation, message created"
+     *       ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="unsuccessful operation, missing fields value"
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="unsuccessful operation, author not found"
+     *       ),
+     *       security={}
+     *     )
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Create a new message
      */
     public function store(MessageStoreRequest $request, Author $author)
     {
@@ -43,10 +103,42 @@ class MessagesController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\GET(
+     *      path="/api/v1/authors/{author}/messages/{message}",
+     *      operationId="show_message",
+     *      tags={"Messages"},
+     *      summary="Get single message author's info",
+     *      description="Get single message author's info",
+     *     @OA\Parameter(
+     *          name="author",
+     *          description="Author's id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Parameter(
+     *          name="message",
+     *          description="message's id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation, author's info returned"
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="author not found"
+     *       ),
+     *       security={}
+     *     )
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Shows message
      */
     public function show(Author $author, Message $message)
     {
@@ -54,11 +146,51 @@ class MessagesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\PUT(
+     *      path="/api/v1/authors/{author}/messages/{message}",
+     *      operationId="update",
+     *      tags={"Messages"},
+     *      summary="Update author's message",
+     *      description="Update author's message",
+     *     @OA\Parameter(
+     *          name="author",
+     *          description="Author's id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Parameter(
+     *          name="message",
+     *          description="Message's id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Parameter(
+     *          name="body",
+     *          description="Messages's body",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=202,
+     *          description="successful operation, message updated"
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="successful operation, author/message not found"
+     *       ),
+     *       security={}
+     *     )
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Updates message
      */
     public function update(Request $request, Author $author, Message $message)
     {
@@ -66,10 +198,42 @@ class MessagesController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\DELETE(
+     *      path="/api/v1/authors/{author}/messages/{message}",
+     *      operationId="delete_message",
+     *      tags={"Messages"},
+     *      summary="Delete the author's message",
+     *      description="Delete the author's message",
+     *     @OA\Parameter(
+     *          name="author",
+     *          description="Author's id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Parameter(
+     *          name="message",
+     *          description="Message's id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation, message deleted"
+     *       ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="successful operation, author/message not found"
+     *       ),
+     *       security={}
+     *     )
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Deletes message
      */
     public function destroy(Author $author, Message $message)
     {

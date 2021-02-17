@@ -4,11 +4,15 @@
 namespace App\Repositories;
 
 use App\Models\Author;
-use Illuminate\Support\Facades\Log;
 
 class AuthorRepository
 {
     public function index()
+    {
+        return Author::query()->paginate()->appends(request()->query());
+    }
+
+    public function indexV2()
     {
         $query = Author::query();
 
@@ -29,7 +33,7 @@ class AuthorRepository
         }
 
         //check requested fields
-        if(request()->has('fields'))
+        if(request()->get('fields'))
         {
             $select = request()->get('has_messages') ? 'id,'.request()->get('fields') : request()->get('fields');
             $query->select(explode(',', $select));

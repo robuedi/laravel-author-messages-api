@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\AuthorCollectionResourceInterface;
-use App\Http\Resources\AuthorResourceInterface;
 use App\Repositories\AuthorRepository;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class AuthorsController extends Controller
@@ -19,12 +16,41 @@ class AuthorsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *      path="/api/v2/authors",
+     *      operationId="index2",
+     *      tags={"Authors"},
+     *      summary="Get/Paginate the list of authors - more granular + messages",
+     *      description="Get/Paginate the list of authors",
+     *     @OA\Parameter(
+     *          name="fields",
+     *          description="the list of fields to be included (comma separated)",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *     @OA\Parameter(
+     *          name="has_messages",
+     *          description="if to include messages, optionally specify the list of the fields (comma separated)",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation"
+     *       ),
+     *       security={}
+     *     )
      *
-     * @return \Illuminate\Http\Response
+     * Returns list of projects
      */
     public function index()
     {
-        return app()->make('AuthorCollectionResource', [$this->author_repository->index(). Response::HTTP_OK]);
+        return app()->make('AuthorCollectionResource', [$this->author_repository->indexV2(), Response::HTTP_OK]);
     }
 }

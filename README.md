@@ -1,24 +1,6 @@
-# API
+# API Documentation
 
-### Authors
-
-Index:
-```GET - /api/v1/authors```
-
-```GET - /api/v2/authors```
-Optional params v2: has_messages={field1?},{field2?}...; fields={field1?},{field2?}
-
-Create:
-```POST - /api/v1/authors```
-Fields: name
-
-### Messages
-Index
-```GET - /api/v1/authors/{author_id}/messages```
-
-Create:
-```POST - /api/v1/authors/{author_id}/messages```
-Fields: body (max 255)
+Visit: http://localhost:8001/api/documentation
 
 # Docker-Laravel
 

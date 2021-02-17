@@ -1,0 +1,390 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "L5 OpenApi",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "darius@matulionis.lt"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/authors": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Get/Paginate the list of authors",
+                "description": "Get/Paginate the list of authors",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": []
+            },
+            "post": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Create a new author",
+                "description": "Creates a new author",
+                "operationId": "store",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Author name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successful operation, author created"
+                    },
+                    "422": {
+                        "description": "unsuccessful operation, missing fields value"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/api/v1/authors/{author}": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Get author's info",
+                "description": "Returns a single author's info",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "author",
+                        "in": "path",
+                        "description": "Author's id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation, author's info returned"
+                    },
+                    "404": {
+                        "description": "author not found"
+                    }
+                },
+                "security": []
+            },
+            "put": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Update the author",
+                "description": "Updates the author",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "author",
+                        "in": "path",
+                        "description": "Author's id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Author's name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "successful operation, author updated"
+                    },
+                    "422": {
+                        "description": "unsuccessful operation, missing fields value"
+                    },
+                    "404": {
+                        "description": "successful operation, author not found"
+                    }
+                },
+                "security": []
+            },
+            "delete": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Delete the author",
+                "description": "Deletes the author",
+                "operationId": "delete",
+                "parameters": [
+                    {
+                        "name": "author",
+                        "in": "path",
+                        "description": "Author's id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation, author deleted"
+                    },
+                    "404": {
+                        "description": "successful operation, author not found"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/api/v1/authors/{author}/messages": {
+            "get": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Get/Paginate the list of messages from an author",
+                "description": "Get/Paginate the list of messages from an author",
+                "operationId": "index_messages",
+                "parameters": [
+                    {
+                        "name": "author",
+                        "in": "path",
+                        "description": "Author's id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "unsuccessful operation, author not found"
+                    }
+                },
+                "security": []
+            },
+            "post": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Create a new message for the author",
+                "description": "Create a new message for the author",
+                "operationId": "store_message",
+                "parameters": [
+                    {
+                        "name": "author",
+                        "in": "path",
+                        "description": "Author's id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "body",
+                        "in": "query",
+                        "description": "Message's content/body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successful operation, message created"
+                    },
+                    "422": {
+                        "description": "unsuccessful operation, missing fields value"
+                    },
+                    "404": {
+                        "description": "unsuccessful operation, author not found"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/api/v1/authors/{author}/messages/{message}": {
+            "get": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Get single message author's info",
+                "description": "Get single message author's info",
+                "operationId": "show_message",
+                "parameters": [
+                    {
+                        "name": "author",
+                        "in": "path",
+                        "description": "Author's id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "message",
+                        "in": "path",
+                        "description": "message's id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation, author's info returned"
+                    },
+                    "404": {
+                        "description": "author not found"
+                    }
+                },
+                "security": []
+            },
+            "put": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Update author's message",
+                "description": "Update author's message",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "author",
+                        "in": "path",
+                        "description": "Author's id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "message",
+                        "in": "path",
+                        "description": "Message's id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "body",
+                        "in": "query",
+                        "description": "Messages's body",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "successful operation, message updated"
+                    },
+                    "404": {
+                        "description": "successful operation, author/message not found"
+                    }
+                },
+                "security": []
+            },
+            "delete": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Delete the author's message",
+                "description": "Delete the author's message",
+                "operationId": "delete_message",
+                "parameters": [
+                    {
+                        "name": "author",
+                        "in": "path",
+                        "description": "Author's id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "message",
+                        "in": "path",
+                        "description": "Message's id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation, message deleted"
+                    },
+                    "404": {
+                        "description": "successful operation, author/message not found"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/api/v2/authors": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Get/Paginate the list of authors - more granular + messages",
+                "description": "Get/Paginate the list of authors",
+                "operationId": "index2",
+                "parameters": [
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "description": "the list of fields to be included (comma separated)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "has_messages",
+                        "in": "query",
+                        "description": "if to include messages, optionally specify the list of the fields (comma separated)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": []
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
