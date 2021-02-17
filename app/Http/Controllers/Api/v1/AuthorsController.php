@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Models\Author;
 use App\Repositories\AuthorRepository;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class AuthorsController extends Controller
@@ -23,7 +24,7 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        return app()->make('AuthorCollectionResource', [$this->author_repository->index()]);
+        return app()->make('AuthorCollectionResource', [$this->author_repository->index(), Response::HTTP_OK]);
     }
 
     /**
@@ -34,7 +35,7 @@ class AuthorsController extends Controller
      */
     public function store(Request $request)
     {
-        return app()->make('AuthorResource', [$this->author_repository->create()]);
+        return app()->make('AuthorResource', [$this->author_repository->create(), Response::HTTP_CREATED]);
     }
 
     /**
@@ -45,7 +46,7 @@ class AuthorsController extends Controller
      */
     public function show(Author $author)
     {
-        return app()->make('AuthorResource', [$author]);
+        return app()->make('AuthorResource', [$author, Response::HTTP_OK]);
     }
 
     /**
@@ -57,7 +58,7 @@ class AuthorsController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        return app()->make('AuthorResource', [$this->author_repository->update($author)]);
+        return app()->make('AuthorResource', [$this->author_repository->update($author), Response::HTTP_ACCEPTED]);
     }
 
     /**
@@ -68,6 +69,6 @@ class AuthorsController extends Controller
      */
     public function destroy(Author $author)
     {
-        return app()->make('AuthorResource', [$this->author_repository->delete($author)]);
+        return app()->make('AuthorResource', [$this->author_repository->delete($author), Response::HTTP_OK]);
     }
 }

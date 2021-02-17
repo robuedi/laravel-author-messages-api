@@ -10,6 +10,7 @@ use App\Models\Author;
 use App\Models\Message;
 use App\Repositories\MessageRepository;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 
 class MessagesController extends Controller
@@ -27,7 +28,7 @@ class MessagesController extends Controller
      */
     public function index(Author $author)
     {
-        return app()->make('MessageCollectionResource', [$this->message_repository->index($author)]);
+        return app()->make('MessageCollectionResource', [$this->message_repository->index($author), Response::HTTP_OK]);
     }
 
     /**
@@ -38,7 +39,7 @@ class MessagesController extends Controller
      */
     public function store(MessageStoreRequest $request, Author $author)
     {
-        return app()->make('MessageResource', [$this->message_repository->create($author)]);
+        return app()->make('MessageResource', [$this->message_repository->create($author), Response::HTTP_CREATED]);
     }
 
     /**
@@ -49,7 +50,7 @@ class MessagesController extends Controller
      */
     public function show(Author $author, Message $message)
     {
-        return app()->make('MessageResource', [$message]);
+        return app()->make('MessageResource', [$message, Response::HTTP_OK]);
     }
 
     /**
@@ -61,7 +62,7 @@ class MessagesController extends Controller
      */
     public function update(Request $request, Author $author, Message $message)
     {
-        return app()->make('MessageResource', [$this->message_repository->updateExceptParent($message)]);
+        return app()->make('MessageResource', [$this->message_repository->updateExceptParent($message), Response::HTTP_ACCEPTED]);
     }
 
     /**
@@ -72,6 +73,6 @@ class MessagesController extends Controller
      */
     public function destroy(Author $author, Message $message)
     {
-        return app()->make('MessageResource', [$this->message_repository->delete($message)]);
+        return app()->make('MessageResource', [$this->message_repository->delete($message), Response::HTTP_OK]);
     }
 }

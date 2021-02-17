@@ -21,21 +21,21 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('AuthorCollectionResource', function ($app, $data) {
             switch ($this->getApiVersion()){
                 case 'api/v1':
-                    return \App\Http\Resources\v1\AuthorResource::collection(reset($data));
+                    return \App\Http\Resources\v1\AuthorResource::collection($data[0])->response()->setStatusCode($data[1]);
                 case 'api/v2':
-                    return \App\Http\Resources\v2\AuthorResource::collection(reset($data));
+                    return \App\Http\Resources\v2\AuthorResource::collection($data[0])->response()->setStatusCode($data[1]);
             }
         });
 
         $this->app->bind('MessageCollectionResource', function ($app, $data) {
-            return \App\Http\Resources\v1\MessageResource::collection(reset($data));
+            return \App\Http\Resources\v1\MessageResource::collection($data[0])->response()->setStatusCode($data[1]);
         });
 
         $this->app->bind('AuthorResource', function ($app, $data) {
             //check which API version we are
             switch ($this->getApiVersion()){
                 case 'api/v1':
-                    return new \App\Http\Resources\v1\AuthorResource(reset($data));
+                    return (new \App\Http\Resources\v1\AuthorResource($data[0]))->response()->setStatusCode($data[1]);
             }
         });
 
@@ -43,8 +43,7 @@ class AppServiceProvider extends ServiceProvider
             //check which API version we are
             switch ($this->getApiVersion()){
                 case 'api/v1':
-                    Log::info('this entry');
-                    return new \App\Http\Resources\v1\MessageResource(reset($data));
+                    return (new \App\Http\Resources\v1\MessageResource($data[0]))->response()->setStatusCode($data[1]);
             }
         });
     }

@@ -7,6 +7,7 @@ use App\Http\Resources\AuthorCollectionResourceInterface;
 use App\Http\Resources\AuthorResourceInterface;
 use App\Repositories\AuthorRepository;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AuthorsController extends Controller
 {
@@ -24,6 +25,6 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        return app()->make('AuthorCollectionResource', [$this->author_repository->index()]);
+        return app()->make('AuthorCollectionResource', [$this->author_repository->index(). Response::HTTP_OK]);
     }
 }
