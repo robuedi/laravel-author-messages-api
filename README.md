@@ -20,9 +20,9 @@ A temporary ```initial-script-progress.txt``` file will be created, wait until i
 First time when booting up the services it will take longer.
 
 ## Client side usage
-Go in browser to [localhost:8000](http://localhost:8000) the view the app (currently the nginx service uses the 8000 port).
+Go in browser to [localhost:8001](http://localhost:8001) the view the app (currently the nginx service uses the 8000 port).
 
-Go in browser to [localhost:7000](http://localhost:7000) to check the database in phpmyadmin (currently the phpmyadmin service uses the 7000 port).
+Go in browser to [localhost:7001](http://localhost:7001) to check the database in phpmyadmin (currently the phpmyadmin service uses the 7000 port).
 
 
 ## Extra (optional, but good to know)
