@@ -1,6 +1,6 @@
 # API Documentation
 
-Visit: [http://localhost:8001/api/documentation](http://localhost:8001/api/documentation) after booting up the project.
+Visit [http://localhost:8001/api/documentation](http://localhost:8001/api/documentation) after booting up the project.
 
 # Docker-Laravel
 
