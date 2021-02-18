@@ -5,6 +5,10 @@ namespace App\Repositories;
 
 use App\Models\Author;
 
+/**
+ * Class AuthorRepository - Using repository class as later we could switch to MongoDB/ElasticSearch...
+ * @package App\Repositories
+ */
 class AuthorRepository implements AuthorRepositoryInterface
 {
     public function index()

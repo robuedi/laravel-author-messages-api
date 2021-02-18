@@ -6,6 +6,10 @@ namespace App\Repositories;
 use App\Models\Author;
 use App\Models\Message;
 
+/**
+ * Class MessageRepository - Using repository class as later we could switch to MongoDB/ElasticSearch...
+ * @package App\Repositories
+ */
 class MessageRepository implements MessageRepositoryInterface
 {
     public function index(Author $author)
