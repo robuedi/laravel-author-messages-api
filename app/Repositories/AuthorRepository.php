@@ -5,7 +5,7 @@ namespace App\Repositories;
 
 use App\Models\Author;
 
-class AuthorRepository
+class AuthorRepository implements AuthorRepositoryInterface
 {
     public function index()
     {

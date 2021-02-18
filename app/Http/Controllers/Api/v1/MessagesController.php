@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\MessageStoreRequest;
-use App\Http\Resources\MessageCollectionResourceInterface;
-use App\Http\Resources\MessageResourceInterface;
 use App\Models\Author;
 use App\Models\Message;
-use App\Repositories\MessageRepository;
+use App\Repositories\MessageRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -16,7 +14,7 @@ class MessagesController extends Controller
 {
     private $message_repository;
 
-    public function __construct(MessageRepository $message_repository)
+    public function __construct(MessageRepositoryInterface $message_repository)
     {
         $this->message_repository = $message_repository;
     }

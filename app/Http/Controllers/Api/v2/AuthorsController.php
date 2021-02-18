@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\AuthorRepository;
+use App\Repositories\AuthorRepositoryInterface;
 use Illuminate\Http\Response;
 
 class AuthorsController extends Controller
 {
     private $author_repository;
 
-    public function __construct(AuthorRepository $author_repository)
+    public function __construct(AuthorRepositoryInterface $author_repository)
     {
         $this->author_repository = $author_repository;
     }

@@ -6,7 +6,7 @@ namespace App\Repositories;
 use App\Models\Author;
 use App\Models\Message;
 
-class MessageRepository
+class MessageRepository implements MessageRepositoryInterface
 {
     public function index(Author $author)
     {

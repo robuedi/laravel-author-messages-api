@@ -6,15 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\AuthorStoreRequest;
 use App\Http\Requests\v1\AuthorUpdateRequest;
 use App\Models\Author;
-use App\Repositories\AuthorRepository;
+use App\Repositories\AuthorRepositoryInterface;
 use Illuminate\Http\Response;
-use Illuminate\Http\Request;
 
 class AuthorsController extends Controller
 {
     private $author_repository;
 
-    public function __construct(AuthorRepository $author_repository)
+    public function __construct(AuthorRepositoryInterface $author_repository)
     {
         $this->author_repository = $author_repository;
     }
