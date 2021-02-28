@@ -4,6 +4,8 @@
 namespace App\Repositories;
 
 use App\Models\Author;
+use App\Repositories\Traits\v1\AuthorRepositoryV1Trait;
+use App\Repositories\Traits\v1\AuthorRepositoryV2Trait;
 
 /**
  * Class AuthorRepository - Using repository class as later we could switch to MongoDB/ElasticSearch...
@@ -11,39 +13,17 @@ use App\Models\Author;
  */
 class AuthorRepository implements AuthorRepositoryInterface
 {
-    public function index()
+    use AuthorRepositoryV1Trait, AuthorRepositoryV2Trait;
+
+    public function index(string $version)
     {
-        return Author::query()->paginate()->appends(request()->query());
-    }
-
-    public function indexV2()
-    {
-        $query = Author::query();
-
-        //check if messages required
-        if(request()->has('has_messages'))
+        switch ($version)
         {
-            $fields = array_filter(explode(',', request()->get('has_messages')));
-            if($fields)
-            {
-                $query->with(['messages' => function($query) use ($fields){
-                    $query->select(array_merge($fields, ['author_id']));
-                }]);
-            }
-            else
-            {
-                $query->with('messages');
-            }
+            case 'v1':
+                return $this->indexV1();
+            case 'v2':
+                return $this->indexV2();
         }
-
-        //check requested fields
-        if(request()->get('fields'))
-        {
-            $select = request()->get('has_messages') ? 'id,'.request()->get('fields') : request()->get('fields');
-            $query->select(explode(',', $select));
-        }
-
-        return $query->paginate()->appends(request()->query());
     }
 
     public function create()

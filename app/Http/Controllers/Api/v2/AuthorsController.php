@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\v2\AuthorResource;
 use App\Repositories\AuthorRepositoryInterface;
 use Illuminate\Http\Response;
 
@@ -51,6 +52,6 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        return app()->make('AuthorCollectionResource', [$this->author_repository->indexV2(), Response::HTTP_OK]);
+        return AuthorResource::collection($this->author_repository->index('v2'))->response()->setStatusCode(Response::HTTP_OK);
     }
 }

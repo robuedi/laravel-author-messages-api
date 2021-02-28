@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\MessageStoreRequest;
+use App\Http\Resources\v1\MessageResource;
 use App\Models\Author;
 use App\Models\Message;
 use App\Repositories\MessageRepositoryInterface;
@@ -50,7 +51,7 @@ class MessagesController extends Controller
      */
     public function index(Author $author)
     {
-        return app()->make('MessageCollectionResource', [$this->message_repository->index($author), Response::HTTP_OK]);
+        return MessageResource::collection($this->message_repository->index($author))->response()->setStatusCode(Response::HTTP_OK);
     }
 
     /**
@@ -97,7 +98,7 @@ class MessagesController extends Controller
      */
     public function store(MessageStoreRequest $request, Author $author)
     {
-        return app()->make('MessageResource', [$this->message_repository->create($author), Response::HTTP_CREATED]);
+        return MessageResource::make($this->message_repository->create($author))->response()->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
@@ -140,7 +141,7 @@ class MessagesController extends Controller
      */
     public function show(Author $author, Message $message)
     {
-        return app()->make('MessageResource', [$message, Response::HTTP_OK]);
+        return MessageResource::make($message)->response()->setStatusCode(Response::HTTP_OK);
     }
 
     /**
@@ -192,7 +193,7 @@ class MessagesController extends Controller
      */
     public function update(Request $request, Author $author, Message $message)
     {
-        return app()->make('MessageResource', [$this->message_repository->updateExceptParent($message), Response::HTTP_ACCEPTED]);
+        return MessageResource::make($this->message_repository->updateExceptParent($message))->response()->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -235,6 +236,6 @@ class MessagesController extends Controller
      */
     public function destroy(Author $author, Message $message)
     {
-        return app()->make('MessageResource', [$this->message_repository->delete($message), Response::HTTP_OK]);
+        return MessageResource::make($this->message_repository->delete($message))->response()->setStatusCode(Response::HTTP_OK);
     }
 }

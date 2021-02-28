@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\AuthorStoreRequest;
 use App\Http\Requests\v1\AuthorUpdateRequest;
+use App\Http\Resources\v1\AuthorResource;
 use App\Models\Author;
 use App\Repositories\AuthorRepositoryInterface;
 use Illuminate\Http\Response;
@@ -36,7 +37,7 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        return app()->make('AuthorCollectionResource', [$this->author_repository->index(), Response::HTTP_OK]);
+        return AuthorResource::collection($this->author_repository->index('v1'))->response()->setStatusCode(Response::HTTP_OK);
     }
 
     /**
@@ -70,7 +71,7 @@ class AuthorsController extends Controller
      */
     public function store(AuthorStoreRequest $request)
     {
-        return app()->make('AuthorResource', [$this->author_repository->create(), Response::HTTP_CREATED]);
+        return AuthorResource::make($this->author_repository->create())->response()->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
@@ -104,7 +105,7 @@ class AuthorsController extends Controller
      */
     public function show(Author $author)
     {
-        return app()->make('AuthorResource', [$author, Response::HTTP_OK]);
+        return AuthorResource::make($author)->response()->setStatusCode(Response::HTTP_OK);
     }
 
     /**
@@ -151,7 +152,7 @@ class AuthorsController extends Controller
      */
     public function update(AuthorUpdateRequest $request, Author $author)
     {
-        return app()->make('AuthorResource', [$this->author_repository->update($author), Response::HTTP_ACCEPTED]);
+        return AuthorResource::make($this->author_repository->update($author))->response()->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -185,6 +186,6 @@ class AuthorsController extends Controller
      */
     public function destroy(Author $author)
     {
-        return app()->make('AuthorResource', [$this->author_repository->delete($author), Response::HTTP_OK]);
+        return AuthorResource::make($this->author_repository->delete($author))->response()->setStatusCode(Response::HTTP_OK);
     }
 }
