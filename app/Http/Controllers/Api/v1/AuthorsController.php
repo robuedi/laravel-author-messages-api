@@ -16,7 +16,7 @@ class AuthorsController extends Controller
 
     public function __construct(AuthorRepositoryInterface $author_repository)
     {
-        $this->author_repository = $author_repository;
+        $this->author_repository = $author_repository->setVersion(1);
     }
 
     /**
@@ -37,7 +37,7 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        return AuthorResource::collection($this->author_repository->index('v1'))->response()->setStatusCode(Response::HTTP_OK);
+        return AuthorResource::collection($this->author_repository->index())->response()->setStatusCode(Response::HTTP_OK);
     }
 
     /**
@@ -88,6 +88,15 @@ class AuthorsController extends Controller
      *          in="path",
      *          @OA\Schema(
      *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Parameter(
+     *          name="fields",
+     *          description="the list of fields to be included (comma separated)",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
      *          )
      *      ),
      *      @OA\Response(

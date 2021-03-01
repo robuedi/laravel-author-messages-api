@@ -170,6 +170,15 @@ class MessagesController extends Controller
      *          )
      *      ),
      *     @OA\Parameter(
+     *          name="fields",
+     *          description="the list of fields to be included (comma separated)",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *     @OA\Parameter(
      *          name="body",
      *          description="Messages's body",
      *          required=false,

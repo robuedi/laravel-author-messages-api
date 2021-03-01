@@ -13,7 +13,7 @@ class AuthorsController extends Controller
 
     public function __construct(AuthorRepositoryInterface $author_repository)
     {
-        $this->author_repository = $author_repository;
+        $this->author_repository = $author_repository->setVersion(2);
     }
 
     /**
@@ -52,6 +52,6 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        return AuthorResource::collection($this->author_repository->index('v2'))->response()->setStatusCode(Response::HTTP_OK);
+        return AuthorResource::collection($this->author_repository->index())->response()->setStatusCode(Response::HTTP_OK);
     }
 }
