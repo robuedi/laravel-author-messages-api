@@ -17,7 +17,7 @@ class MessagesController extends Controller
 
     public function __construct(MessageRepositoryInterface $message_repository)
     {
-        $this->message_repository = $message_repository;
+        $this->message_repository = $message_repository->setVersion(1);
     }
 
     /**

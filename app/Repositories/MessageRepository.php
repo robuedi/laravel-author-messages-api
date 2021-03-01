@@ -12,6 +12,14 @@ use App\Models\Message;
  */
 class MessageRepository implements MessageRepositoryInterface
 {
+    private float $version = 1;
+
+    public function setVersion(float $version)
+    {
+        $this->version = $version;
+        return $this;
+    }
+
     public function index(Author $author)
     {
         return $author->messages;

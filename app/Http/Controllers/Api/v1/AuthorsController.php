@@ -12,7 +12,7 @@ use Illuminate\Http\Response;
 
 class AuthorsController extends Controller
 {
-    private $author_repository;
+    private AuthorRepositoryInterface $author_repository;
 
     public function __construct(AuthorRepositoryInterface $author_repository)
     {
