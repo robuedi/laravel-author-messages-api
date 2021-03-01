@@ -57,7 +57,7 @@ class RouteServiceProvider extends ServiceProvider
             {
                 $q->select(explode(',', request()->get('fields')));
             }
-            
+
             return $q->first();
         });
 
